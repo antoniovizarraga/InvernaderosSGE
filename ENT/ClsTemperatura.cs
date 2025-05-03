@@ -8,17 +8,17 @@
 
         public DateOnly Fecha { get; }
 
-        public double Temp1 { get; }
+        public double Temp1 { get; set; }
 
-        public double Temp2 { get; }
+        public double Temp2 { get; set; }
 
-        public double Temp3 { get; }
+        public double Temp3 { get; set; }
 
-        public double Humedad1 { get; }
+        public double Humedad1 { get; set; }
 
-        public double Humedad2 { get; }
+        public double Humedad2 { get; set; }
 
-        public double Humedad3 { get; }
+        public double Humedad3 { get; set; }
 
         #endregion
 
