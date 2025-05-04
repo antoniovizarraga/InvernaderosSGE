@@ -10,7 +10,7 @@ namespace DAL
         /// Pre: Nada. Post: Devuelve un <see cref="List{ClsInvernadero}"/> con objetos de tipo <see cref="ClsInvernadero"/>.
         /// </summary>
         /// <returns>Un <see cref="List{ClsInvernadero}"/> relleno con objetos de tipo <see cref="ClsInvernadero"/>. Estará vacío si en la BBDD no hay datos.</returns>
-        public static List<ClsInvernadero> ObtenerListadoPersonajes()
+        public static List<ClsInvernadero> ObtenerListadoInvernaderos()
         {
             SqlConnection miConexion = new SqlConnection();
 
@@ -41,16 +41,14 @@ namespace DAL
                     while (miLector.Read())
                     {
 
-                        if ((int)miLector["idInvernadero"] != null || !string.IsNullOrEmpty((string)miLector["idInvernadero"]))
-                        {
-                            // Quizás se podría hacer un sólo constructor de Personaje con el ID, para así no tener que hacerlo todo en una única línea.
-                            invernadero = new ClsInvernadero((int)miLector["idInvernadero"], (string)miLector["idInvernadero"]);
+                        /* Cómo en la BBDD estos campos no pueden ser nulos (El ID es la PK que además es Identity, y
+                         * el nombre es not null (No tiene sentido registrar un Invernadero que no tiene nombre),
+                         * no compruebo que no sean nulos porque ya en la BBDD siempre va a tener un valor de
+                         * antemano. */
 
-                            listadoInvernaderos.Add(invernadero);
+                        invernadero = new ClsInvernadero((int)miLector["idInvernadero"], (string)miLector["idInvernadero"]);
 
-                        }
-
-
+                        listadoInvernaderos.Add(invernadero);
 
                     }
                 }
