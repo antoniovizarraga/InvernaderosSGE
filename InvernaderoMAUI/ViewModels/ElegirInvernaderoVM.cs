@@ -12,7 +12,7 @@ namespace InvernaderoMAUI.ViewModels
 
         private Dictionary<string, object> datosAPasar = new Dictionary<string, object>();
 
-        private bool errorAlert;
+        private bool errorAlert = false;
 
         private ClsInvernadero invernaderoSeleccionado;
 

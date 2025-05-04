@@ -32,8 +32,6 @@ namespace DAL
         /// Si no, devolverá <see langword="false"/>.</returns>
         public static bool ComprobarSiFechaDeTemperaturaExiste(DateTime fecha)
         {
-
-
             bool res = false;
 
             SqlConnection miConexion = new SqlConnection();
@@ -45,7 +43,8 @@ namespace DAL
             /* Revisar esta línea de código más tarde, ya que igual convertir un tipo Date en SQL Server a DateOnly
              * puede dar problemas según la documentación: */
             // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
-            miComando.Parameters.Add("@fechaSeleccionada", System.Data.SqlDbType.Date).Value = fecha.Date;
+            miComando.Parameters.Add("@fechaSeleccionada", SqlDbType.Date).Value = fecha.ToString("yyyy-dd-MM");
+
 
             miConexion.ConnectionString = ClsConectionBD.GetConnectionString();
 
