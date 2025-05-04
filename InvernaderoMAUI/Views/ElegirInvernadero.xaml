@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:InvernaderoMAUI.ViewModels"
+             x:Class="InvernaderoMAUI.Views.ElegirInvernadero"
+             Title="Invernaderos">
+    <ContentPage.BindingContext>
+        <vm:ElegirInvernaderoVM />
+    </ContentPage.BindingContext>
+    
+    
+    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
+        <HorizontalStackLayout Spacing="20">
+            <VerticalStackLayout>
+                <Picker Title="Seleccione un Invernadero:" ItemsSource="{Binding ListadoInvernaderos}" SelectedItem="{Binding InvernaderoSeleccionado}" ItemDisplayBinding="{Binding Nombre}" />
+            </VerticalStackLayout>
+
+            <VerticalStackLayout>
+                <Label Text="Seleccione una fecha:" />
+                <DatePicker Date="{Binding FechaSeleccionada}" MaximumDate="{Binding FechaActual}" />
+            </VerticalStackLayout>
+
+        </HorizontalStackLayout>
+
+        <Button ImageSource="temperature.png" TextColor="White" Text="Comprobar temperaturas" WidthRequest="300" Command="{Binding ConfirmarCommand}" />
+
+    </VerticalStackLayout>
+</ContentPage>

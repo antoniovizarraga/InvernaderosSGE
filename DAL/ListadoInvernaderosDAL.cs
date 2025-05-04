@@ -46,7 +46,7 @@ namespace DAL
                          * no compruebo que no sean nulos porque ya en la BBDD siempre va a tener un valor de
                          * antemano. */
 
-                        invernadero = new ClsInvernadero((int)miLector["idInvernadero"], (string)miLector["idInvernadero"]);
+                        invernadero = new ClsInvernadero((int)miLector["idInvernadero"], (string)miLector["nombre"]);
 
                         listadoInvernaderos.Add(invernadero);
 

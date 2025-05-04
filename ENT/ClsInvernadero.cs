@@ -5,7 +5,7 @@
         #region Propiedades
         public int Id { get; }
 
-        public string Nombre { get; }
+        public string Nombre { get; set; }
 
         #endregion
 

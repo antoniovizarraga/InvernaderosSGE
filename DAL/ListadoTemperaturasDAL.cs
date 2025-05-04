@@ -45,7 +45,7 @@ namespace DAL
                                  * un constructor así de tocho. Revisar esto más tarde por si hiciera falta
                                  * borrar todo esto. */
 
-                                temperatura = new ClsTemperatura((int)miLector["idInvernadero"], (DateOnly)miLector["fecha"], 
+                                temperatura = new ClsTemperatura((int)miLector["idInvernadero"], (DateTime)miLector["fecha"], 
                                 (double?)miLector["temp1"], (double?)miLector["temp2"], (double?)miLector["temp3"],
                                 (double?)miLector["humedad1"], (double?)miLector["humedad2"], (double?)miLector["humedad3"]);
 

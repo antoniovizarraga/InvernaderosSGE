@@ -6,7 +6,7 @@
 
         public int IdInvernadero { get; }
 
-        public DateOnly Fecha { get; }
+        public DateTime Fecha { get; }
 
         /* Hacemos todas estas propiedades null porque puede ocurrir que una
          * temperatura no sea registrada correctamente cómo indica el
@@ -30,19 +30,19 @@
 
         #region Constructores
 
-        public ClsTemperatura(int IdInvernadero, DateOnly Fecha)
+        public ClsTemperatura(int IdInvernadero, DateTime Fecha)
         {
             this.IdInvernadero = IdInvernadero;
-            this.Fecha = Fecha;
+            this.Fecha = Fecha.Date;
         }
 
         /* Quizás este constructor sobre, debido a que esto sólo se usa para la función de la capa DAL:
          * "ObtenerListadoTemperaturas", y dicho listado según intuyo, no hace falta. Mejor que sobre
          * a que no falte. :) */
-        public ClsTemperatura(int IdInvernadero, DateOnly Fecha, double? Temp1, double? Temp2, double? Temp3, double? Humedad1, double? Humedad2, double? Humedad3)
+        public ClsTemperatura(int IdInvernadero, DateTime Fecha, double? Temp1, double? Temp2, double? Temp3, double? Humedad1, double? Humedad2, double? Humedad3)
         {
             this.IdInvernadero = IdInvernadero;
-            this.Fecha = Fecha;
+            this.Fecha = Fecha.Date;
             this.Temp1 = Temp1;
             this.Temp2 = Temp2;
             this.Temp3 = Temp3;
