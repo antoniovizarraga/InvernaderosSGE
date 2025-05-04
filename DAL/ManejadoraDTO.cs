@@ -30,7 +30,7 @@ namespace DAL
         /// <param name="fecha">La fecha a buscar en la BBDD para saber si existe una temperatura con dicha fecha.</param>
         /// <returns>Un <see langword="bool"/> indicando si la fecha existe en la BBDD. Devolverá <see langword="true"/> si lo encuentra.
         /// Si no, devolverá <see langword="false"/>.</returns>
-        public bool ComprobarSiFechaDeTemperaturaExiste(DateOnly fecha)
+        public static bool ComprobarSiFechaDeTemperaturaExiste(DateOnly fecha)
         {
 
 
@@ -100,7 +100,7 @@ namespace DAL
         /// <param name="fecha">La fecha por la que buscar en la BBDD una temperatura.</param>
         /// <returns>Un <see cref="ClsTemperaturaConNombreInvernadero"/> relleno con valores que encuentre en la BBDD. Si no
         /// lo encuentra, puede estar nulo o vacío.</returns>
-        public ClsTemperaturaConNombreInvernadero BuscarTemperaturaConNombrePorFecha(DateOnly fecha)
+        public static ClsTemperaturaConNombreInvernadero BuscarTemperaturaConNombrePorFecha(DateOnly fecha)
         {
             ClsTemperaturaConNombreInvernadero temperaturaConNombre = new ClsTemperaturaConNombreInvernadero("", 0, DateOnly.FromDateTime(DateTime.Now.Date));
 
