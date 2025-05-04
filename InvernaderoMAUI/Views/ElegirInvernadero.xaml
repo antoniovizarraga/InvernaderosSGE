@@ -10,9 +10,9 @@
     
     
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="20">
-        <HorizontalStackLayout BackgroundColor="DarkRed" IsEnabled="{Binding ErrorAlert}">
-            <Label Text="ERROR: No hay Invernadero para la fecha que ha seleccionado. Seleccione otra." TextColor="White" />
-        </HorizontalStackLayout>
+        <StackLayout Orientation="Horizontal" BackgroundColor="DarkRed" IsVisible="{Binding ErrorAlert}" HeightRequest="60">
+            <Label Text="ERROR: No hay Invernadero para la fecha que ha seleccionado. Seleccione otra." TextColor="White" LineBreakMode="WordWrap" MaxLines="3" />
+        </StackLayout>
         <HorizontalStackLayout Spacing="20">
             <VerticalStackLayout>
                 <Picker Title="Seleccione un Invernadero:" ItemsSource="{Binding ListadoInvernaderos}" SelectedItem="{Binding InvernaderoSeleccionado}" ItemDisplayBinding="{Binding Nombre}" />

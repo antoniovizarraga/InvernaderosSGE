@@ -27,10 +27,11 @@ namespace DAL
         /// Pre: La fecha debe estar registrada en la tabla Temperaturas. Si no, la función
         /// devolverá <see langword="false"/>. O <see langword="true"/> en caso contrario. Post: Ninguna.
         /// </summary>
+        /// <param name="idDepartamento">El departamento para comprobar si la fecha especificada coincide con la del apartamento.</param>
         /// <param name="fecha">La fecha a buscar en la BBDD para saber si existe una temperatura con dicha fecha.</param>
         /// <returns>Un <see langword="bool"/> indicando si la fecha existe en la BBDD. Devolverá <see langword="true"/> si lo encuentra.
         /// Si no, devolverá <see langword="false"/>.</returns>
-        public static bool ComprobarSiFechaDeTemperaturaExiste(DateTime fecha)
+        public static bool ComprobarSiFechaDeTemperaturaExiste(int idDepartamento, DateTime fecha)
         {
             bool res = false;
 
@@ -44,6 +45,8 @@ namespace DAL
              * puede dar problemas según la documentación: */
             // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
             miComando.Parameters.Add("@fechaSeleccionada", SqlDbType.Date).Value = fecha.ToString("yyyy-dd-MM");
+            miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idDepartamento;
+
 
 
             miConexion.ConnectionString = ClsConectionBD.GetConnectionString();
@@ -53,7 +56,7 @@ namespace DAL
                 miConexion.Open();
 
                 /* Consulta SQL con un JOIN de las dos tablas para que nos devuelva una fila con la fecha que se nos pasa por parámetro. */
-                miComando.CommandText = "SELECT i.nombre, t.idInvernadero, t.fecha, t.temp1, t.temp2, t.temp3, t.humedad1, t.humedad2, t.humedad3 FROM Temperaturas AS t INNER JOIN Invernaderos AS i ON t.idInvernadero = i.idInvernadero WHERE t.fecha = @fechaSeleccionada";
+                miComando.CommandText = "SELECT i.nombre, t.idInvernadero, t.fecha, t.temp1, t.temp2, t.temp3, t.humedad1, t.humedad2, t.humedad3 FROM Temperaturas AS t INNER JOIN Invernaderos AS i ON t.idInvernadero = i.idInvernadero WHERE t.idInvernadero = @idDepar AND t.fecha = @fechaSeleccionada";
                 miComando.Connection = miConexion;
 
                 miLector = miComando.ExecuteReader();
@@ -96,10 +99,11 @@ namespace DAL
         /// ADVERTENCIA: Puede que contenga datos como: "temp1" que estén nulos (Porque no registre una temperatura
         /// correctamente). De ser así, en la vista asegúrate de que ponga un: "?" en dicho caso.
         /// </summary>
+        /// <param name="idDepartamento">El departamento para comprobar si la fecha especificada coincide con la del apartamento.</param>
         /// <param name="fecha">La fecha por la que buscar en la BBDD una temperatura.</param>
         /// <returns>Un <see cref="ClsTemperaturaConNombreInvernadero"/> relleno con valores que encuentre en la BBDD. Si no
         /// lo encuentra, puede estar nulo o vacío.</returns>
-        public static ClsTemperaturaConNombreInvernadero BuscarTemperaturaConNombrePorFecha(DateTime fecha)
+        public static ClsTemperaturaConNombreInvernadero BuscarTemperaturaConNombrePorFecha(int idDepartamento, DateTime fecha)
         {
             ClsTemperaturaConNombreInvernadero temperaturaConNombre = new ClsTemperaturaConNombreInvernadero("", 0, DateTime.Now.Date);
 
@@ -113,7 +117,9 @@ namespace DAL
             /* Revisar esta línea de código más tarde, ya que igual convertir un tipo Date en SQL Server a DateOnly
              * puede dar problemas según la documentación: */
             // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
-            miComando.Parameters.Add("@fechaSeleccionada", System.Data.SqlDbType.Date).Value = fecha.Date;
+            miComando.Parameters.Add("@fechaSeleccionada", System.Data.SqlDbType.Date).Value = fecha.ToString("yyyy-dd-MM");
+            miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idDepartamento;
+
 
             miConexion.ConnectionString = ClsConectionBD.GetConnectionString();
 
@@ -122,7 +128,7 @@ namespace DAL
                 miConexion.Open();
 
                 /* Consulta SQL con un JOIN de las dos tablas para que nos devuelva una fila con la fecha que se nos pasa por parámetro. */
-                miComando.CommandText = "SELECT i.nombre, t.idInvernadero, t.fecha, t.temp1, t.temp2, t.temp3, t.humedad1, t.humedad2, t.humedad3 FROM Temperaturas AS t INNER JOIN Invernaderos AS i ON t.idInvernadero = i.idInvernadero WHERE t.fecha = @fechaSeleccionada";
+                miComando.CommandText = "SELECT i.nombre, t.idInvernadero, t.fecha, t.temp1, t.temp2, t.temp3, t.humedad1, t.humedad2, t.humedad3 FROM Temperaturas AS t INNER JOIN Invernaderos AS i ON t.idInvernadero = i.idInvernadero WHERE t.idInvernadero = @idDepar AND t.fecha = @fechaSeleccionada";
                 miComando.Connection = miConexion;
 
                 miLector = miComando.ExecuteReader();
@@ -134,12 +140,21 @@ namespace DAL
                 {
                     while (miLector.Read())
                     {
-                        /* Revisar esta línea de código más tarde, ya que igual convertir un tipo Date en SQL Server a DateOnly
-                         * puede dar problemas según la documentación: */
-                        // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
-                        temperaturaConNombre = new ClsTemperaturaConNombreInvernadero((string)miLector["nombre"], (int)miLector["idInvernadero"], (DateTime)miLector["fecha"],
-                            (double?)miLector["temp1"], (double?)miLector["temp2"], (double?)miLector["temp3"],
-                            (double?)miLector["humedad1"], (double?)miLector["humedad2"], (double?)miLector["humedad3"]);
+                        /* Esto he tenido que hacerlo porque un campo nulo en base de datos no es igual a un null en código. */
+                        // Dios mío...
+                        temperaturaConNombre = new ClsTemperaturaConNombreInvernadero(
+                            (string)miLector["nombre"],
+                            (int)miLector["idInvernadero"],
+                            (DateTime)miLector["fecha"],
+
+                            miLector["temp1"] == DBNull.Value ? null : (double?)miLector["temp1"],
+                            miLector["temp2"] == DBNull.Value ? null : (double?)miLector["temp2"],
+                            miLector["temp3"] == DBNull.Value ? null : (double?)miLector["temp3"],
+
+                            miLector["humedad1"] == DBNull.Value ? null : (double?)miLector["humedad1"],
+                            miLector["humedad2"] == DBNull.Value ? null : (double?)miLector["humedad2"],
+                            miLector["humedad3"] == DBNull.Value ? null : (double?)miLector["humedad3"]
+                        );
 
                     }
                 }

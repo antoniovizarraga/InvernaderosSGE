@@ -71,9 +71,9 @@ namespace InvernaderoMAUI.ViewModels
 
         private void ConfirmarCommand_Execute()
         {
-            if (!ManejadoraDtoBL.ComprobarSiFechaDeTemperaturaExiste(FechaSeleccionada))
+            if (!ManejadoraDtoBL.ComprobarSiFechaDeTemperaturaExiste(invernaderoSeleccionado.Id, FechaSeleccionada))
             {
-                errorAlert = true;
+                ErrorAlert = true;
             } else
             {
                 // Esto lo hacemos para que por si había ya datos anteriores que se hayan quedado en memoria en el diccionario, los borramos de antemano.

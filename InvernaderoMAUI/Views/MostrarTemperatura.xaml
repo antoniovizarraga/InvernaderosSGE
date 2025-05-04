@@ -1,12 +1,66 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:InvernaderoMAUI.ViewModels"
              x:Class="InvernaderoMAUI.Views.MostrarTemperatura"
-             Title="MostrarTemperatura">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+             Title="Información del Invernadero">
+    <ContentPage.BindingContext>
+        <vm:MostrarTemperaturaVM />
+    </ContentPage.BindingContext>
+
+
+    <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="40">
+        <HorizontalStackLayout Spacing="20">
+            <Label Text="{Binding InvernaderoInfo.Nombre}" FontSize="Title" FontAttributes="Bold" />
+            <Label Text="{Binding FechaVista}" FontSize="Title" FontAttributes="Bold" />
+        </HorizontalStackLayout>
+
+
+        <VerticalStackLayout Spacing="20">
+            <Label Text="Temperaturas" FontSize="Subtitle" />
+            <HorizontalStackLayout Spacing="20">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Temperatura 08:00:" />
+                    <Label Text="{Binding Temperatura1}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp1}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Temperatura 16:00:" />
+                    <Label Text="{Binding Temperatura2}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp2}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Temperatura 24:00:" />
+                    <Label Text="{Binding Temperatura3}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp3}" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+
+        <VerticalStackLayout Spacing="20">
+            <Label Text="Humedad" FontSize="Subtitle" />
+            <HorizontalStackLayout Spacing="20">
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Humedad 08:00:" />
+                    <Label Text="{Binding Humedad1}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad1}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Humedad 16:00:" />
+                    <Label Text="{Binding Humedad2}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad2}" />
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Spacing="20">
+                    <Label Text="Humedad 24:00:" />
+                    <Label Text="{Binding Humedad3}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad3}" />
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+        </VerticalStackLayout>
+        <Button Text="Volver atrás" Command="{Binding VolverCommand}" WidthRequest="250" />
     </VerticalStackLayout>
 </ContentPage>
