@@ -20,7 +20,7 @@
 
             <VerticalStackLayout>
                 <Label Text="Seleccione una fecha:" />
-                <DatePicker Date="{Binding FechaSeleccionada}" MaximumDate="{Binding FechaActual}"/>
+                <DatePicker Date="{Binding FechaSeleccionada}" Format="dd/MM/yyyy" MaximumDate="{Binding FechaActual}"/>
             </VerticalStackLayout>
 
         </HorizontalStackLayout>

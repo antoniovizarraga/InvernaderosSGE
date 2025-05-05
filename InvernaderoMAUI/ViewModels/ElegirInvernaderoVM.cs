@@ -82,7 +82,7 @@ namespace InvernaderoMAUI.ViewModels
                 datosAPasar.Add("nombreElegido", InvernaderoSeleccionado);
                 datosAPasar.Add("fechaElegida", FechaSeleccionada.Date);
                 errorAlert = false;
-                CambiarPagina("///MostrarTemperatura", datosAPasar);
+                CambiarPagina("//MostrarTemperatura", datosAPasar);
             }
         }
 

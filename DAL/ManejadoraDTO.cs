@@ -44,7 +44,7 @@ namespace DAL
             /* Revisar esta línea de código más tarde, ya que igual convertir un tipo Date en SQL Server a DateOnly
              * puede dar problemas según la documentación: */
             // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
-            miComando.Parameters.Add("@fechaSeleccionada", SqlDbType.Date).Value = fecha.ToString("yyyy-dd-MM");
+            miComando.Parameters.Add("@fechaSeleccionada", SqlDbType.Date).Value = fecha.ToString("yyyy-MM-dd");
             miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idDepartamento;
 
 
@@ -59,6 +59,7 @@ namespace DAL
                 miComando.CommandText = "SELECT i.nombre, t.idInvernadero, t.fecha, t.temp1, t.temp2, t.temp3, t.humedad1, t.humedad2, t.humedad3 FROM Temperaturas AS t INNER JOIN Invernaderos AS i ON t.idInvernadero = i.idInvernadero WHERE t.idInvernadero = @idDepar AND t.fecha = @fechaSeleccionada";
                 miComando.Connection = miConexion;
 
+                
                 miLector = miComando.ExecuteReader();
 
 
@@ -117,7 +118,7 @@ namespace DAL
             /* Revisar esta línea de código más tarde, ya que igual convertir un tipo Date en SQL Server a DateOnly
              * puede dar problemas según la documentación: */
             // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
-            miComando.Parameters.Add("@fechaSeleccionada", System.Data.SqlDbType.Date).Value = fecha.ToString("yyyy-dd-MM");
+            miComando.Parameters.Add("@fechaSeleccionada", System.Data.SqlDbType.Date).Value = fecha.ToString("yyyy-MM-dd");
             miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idDepartamento;
 
 
@@ -147,13 +148,13 @@ namespace DAL
                             (int)miLector["idInvernadero"],
                             (DateTime)miLector["fecha"],
 
-                            miLector["temp1"] == DBNull.Value ? null : (double?)miLector["temp1"],
-                            miLector["temp2"] == DBNull.Value ? null : (double?)miLector["temp2"],
-                            miLector["temp3"] == DBNull.Value ? null : (double?)miLector["temp3"],
+                            miLector["temp1"] == DBNull.Value ? null : (double)miLector["temp1"],
+                            miLector["temp2"] == DBNull.Value ? null : (double)miLector["temp2"],
+                            miLector["temp3"] == DBNull.Value ? null : (double)miLector["temp3"],
 
-                            miLector["humedad1"] == DBNull.Value ? null : (double?)miLector["humedad1"],
-                            miLector["humedad2"] == DBNull.Value ? null : (double?)miLector["humedad2"],
-                            miLector["humedad3"] == DBNull.Value ? null : (double?)miLector["humedad3"]
+                            miLector["humedad1"] == DBNull.Value ? null : (double)miLector["humedad1"],
+                            miLector["humedad2"] == DBNull.Value ? null : (double)miLector["humedad2"],
+                            miLector["humedad3"] == DBNull.Value ? null : (double)miLector["humedad3"]
                         );
 
                     }

@@ -40,9 +40,6 @@ namespace InvernaderoMAUI.ViewModels
 
         public ClsInvernadero InvernaderoRecibido { get { return invernaderoRecibido; } }
 
-        // Esto lo hacemos porque al hacer Binding no sólo muestra la fecha, si no que la hora también.
-        public string FechaVista { get; private set; }
-
         public DateTime? FechaRecibida { get { return fechaRecibida; } }
 
         public string Temperatura1 {
@@ -131,6 +128,11 @@ namespace InvernaderoMAUI.ViewModels
          * en la documentación, aquí:
          * https://learn.microsoft.com/en-us/dotnet/maui/fundamentals/shell/navigation?view=net-maui-8.0#process-navigation-data-using-a-single-method */
 
+        public MostrarTemperaturaVM()
+        {
+            VolverCommand = new DelegateCommand(VolverCommand_Execute);
+        }
+
         #endregion
 
         #region Métodos
@@ -148,21 +150,18 @@ namespace InvernaderoMAUI.ViewModels
 
         private void VolverCommand_Execute()
         {
-            CambiarPagina("///ElegirInvernadero");
+            CambiarPagina("//ElegirInvernadero");
         }
 
         /* Función que cuando .NET MAUI detecta que ha recibido un objeto por parámetro de forma automática, se ejecuta automáticamente.
          * Esto funciona como un: "Constructor" a nivel de código. Que se activa cada vez que recibe datos. */
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-            VolverCommand = new DelegateCommand(VolverCommand_Execute);
 
             invernaderoRecibido = query["nombreElegido"] as ClsInvernadero;
 
             // Tuve que ponerlo así porque si no salta un error diciendo que DateOnly no es un tipo que acepte null.
             fechaRecibida = query["fechaElegida"] as DateTime?;
-
-            FechaVista = fechaRecibida.Value.ToShortDateString();
 
             InvernaderoInfo = ManejadoraDtoBL.BuscarTemperaturaConNombrePorFecha(invernaderoRecibido.Id, fechaRecibida.Value);
 
@@ -176,7 +175,7 @@ namespace InvernaderoMAUI.ViewModels
 
 
             NotifyPropertyChanged("InvernaderoInfo");
-            NotifyPropertyChanged("FechaVista");
+            NotifyPropertyChanged("FechaRecibida");
             NotifyPropertyChanged("Temperatura1");
             NotifyPropertyChanged("Temperatura2");
             NotifyPropertyChanged("Temperatura3");

@@ -12,7 +12,7 @@
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="40">
         <HorizontalStackLayout Spacing="20">
             <Label Text="{Binding InvernaderoInfo.Nombre}" FontSize="Title" FontAttributes="Bold" />
-            <Label Text="{Binding FechaVista}" FontSize="Title" FontAttributes="Bold" />
+            <Label Text="{Binding FechaRecibida, StringFormat='{0:dd/MM/yyyy}'}" FontSize="Title" FontAttributes="Bold" />
         </HorizontalStackLayout>
 
 
