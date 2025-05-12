@@ -20,11 +20,11 @@ namespace InvernaderoMAUI.ViewModels.Utilities.Converters
         /// <returns></returns>
         object? IValueConverter.Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
-            float temp = 0;
+            double temp = 0.0;
 
             if(value != null)
             {
-                temp = (float)value / 50;
+                temp = (double)value / 50.0;
             }
 
             return temp;

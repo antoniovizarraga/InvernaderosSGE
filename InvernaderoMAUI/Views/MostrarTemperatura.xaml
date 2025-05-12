@@ -2,12 +2,18 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:InvernaderoMAUI.ViewModels"
+             xmlns:converters="clr-namespace:InvernaderoMAUI.ViewModels.Utilities.Converters"
              x:Class="InvernaderoMAUI.Views.MostrarTemperatura"
              Title="Información del Invernadero">
     <ContentPage.BindingContext>
         <vm:MostrarTemperaturaVM />
     </ContentPage.BindingContext>
 
+    <ContentPage.Resources>
+        <converters:ConverterProgressBarTemp x:Key="conversorTemperatura" />
+        <converters:ConverterProgressBarHumedad x:Key="conversorHumedad" />
+
+    </ContentPage.Resources>
 
     <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Spacing="40">
         <HorizontalStackLayout Spacing="20">
@@ -21,20 +27,20 @@
             <HorizontalStackLayout Spacing="20">
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Temperatura 08:00:" />
-                    <Label Text="{Binding InvernaderoInfo.Temp1, StringFormat='{0}ºC', TargetNullValue='?'}" />
-                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp1}" />
+                    <Label Text="{Binding InvernaderoInfo.Temp1, StringFormat='{0} ºC', TargetNullValue='?'}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp1, Converter={StaticResource conversorTemperatura}}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Temperatura 16:00:" />
-                    <Label Text="{Binding InvernaderoInfo.Temp2, StringFormat='{0}ºC', TargetNullValue='?'}" />
-                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp2}" />
+                    <Label Text="{Binding InvernaderoInfo.Temp2, StringFormat='{0} ºC', TargetNullValue='?'}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp2, Converter={StaticResource conversorTemperatura}}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Temperatura 24:00:" />
-                    <Label Text="{Binding InvernaderoInfo.Temp3, StringFormat='{0}ºC', TargetNullValue='?'}" />
-                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp3}" />
+                    <Label Text="{Binding InvernaderoInfo.Temp3, StringFormat='{0} ºC', TargetNullValue='?'}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Temp3, Converter={StaticResource conversorTemperatura}}" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
         </VerticalStackLayout>
@@ -44,20 +50,20 @@
             <HorizontalStackLayout Spacing="20">
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Humedad 08:00:" />
-                    <Label Text="{Binding InvernaderoInfo.Humedad1, StringFormat='{0}%', TargetNullValue='?'}" />
-                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad1}" />
+                    <Label Text="{Binding InvernaderoInfo.Humedad1, StringFormat='{0} %', TargetNullValue='?'}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad1, Converter={StaticResource conversorHumedad}}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Humedad 16:00:" />
-                    <Label Text="{Binding InvernaderoInfo.Humedad2, StringFormat='{0}%', TargetNullValue='?'}" />
-                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad2}" />
+                    <Label Text="{Binding InvernaderoInfo.Humedad2, StringFormat='{0} %', TargetNullValue='?'}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad2, Converter={StaticResource conversorHumedad}}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Humedad 24:00:" />
-                    <Label Text="{Binding InvernaderoInfo.Humedad3, StringFormat='{0}%', TargetNullValue='?'}" />
-                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad3}" />
+                    <Label Text="{Binding InvernaderoInfo.Humedad3, StringFormat='{0} %', TargetNullValue='?'}" />
+                    <ProgressBar Progress="{Binding InvernaderoInfo.Humedad3, Converter={StaticResource conversorHumedad}}" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
         </VerticalStackLayout>

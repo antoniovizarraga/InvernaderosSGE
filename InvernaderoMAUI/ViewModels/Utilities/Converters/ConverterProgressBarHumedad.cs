@@ -22,7 +22,14 @@ namespace InvernaderoMAUI.ViewModels.Utilities.Converters
         object? IValueConverter.Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
         {
 
-            return value;
+            double humedad = 0.0;
+
+            if (value != null)
+            {
+                humedad = (double)value / 100.0;
+            }
+
+            return humedad;
 
         }
 
