@@ -27,11 +27,11 @@ namespace DAL
         /// Pre: La fecha debe estar registrada en la tabla Temperaturas. Si no, la función
         /// devolverá <see langword="false"/>. O <see langword="true"/> en caso contrario. Post: Ninguna.
         /// </summary>
-        /// <param name="idDepartamento">El departamento para comprobar si la fecha especificada coincide con la del apartamento.</param>
+        /// <param name="idInvernadero">El Id del Invernadero para comprobar si la temperatura existe con un Invernadero y una fecha dada.</param>
         /// <param name="fecha">La fecha a buscar en la BBDD para saber si existe una temperatura con dicha fecha.</param>
         /// <returns>Un <see langword="bool"/> indicando si la fecha existe en la BBDD. Devolverá <see langword="true"/> si lo encuentra.
         /// Si no, devolverá <see langword="false"/>.</returns>
-        public static bool ComprobarSiFechaDeTemperaturaExiste(int idDepartamento, DateTime fecha)
+        public static bool ComprobarSiFechaDeTemperaturaExiste(int idInvernadero, DateTime fecha)
         {
             bool res = false;
 
@@ -45,7 +45,7 @@ namespace DAL
              * puede dar problemas según la documentación: */
             // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
             miComando.Parameters.Add("@fechaSeleccionada", SqlDbType.Date).Value = fecha.ToString("yyyy-MM-dd");
-            miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idDepartamento;
+            miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idInvernadero;
 
 
 
@@ -100,11 +100,11 @@ namespace DAL
         /// ADVERTENCIA: Puede que contenga datos como: "temp1" que estén nulos (Porque no registre una temperatura
         /// correctamente). De ser así, en la vista asegúrate de que ponga un: "?" en dicho caso.
         /// </summary>
-        /// <param name="idDepartamento">El departamento para comprobar si la fecha especificada coincide con la del apartamento.</param>
+        /// <param name="idInvernadero">El Id del Invernadero para comprobar si la temperatura existe con un Invernadero y una fecha dada.</param>
         /// <param name="fecha">La fecha por la que buscar en la BBDD una temperatura.</param>
         /// <returns>Un <see cref="ClsTemperaturaConNombreInvernadero"/> relleno con valores que encuentre en la BBDD. Si no
         /// lo encuentra, puede estar nulo o vacío.</returns>
-        public static ClsTemperaturaConNombreInvernadero BuscarTemperaturaConNombrePorFecha(int idDepartamento, DateTime fecha)
+        public static ClsTemperaturaConNombreInvernadero BuscarTemperaturaConNombrePorFecha(int idInvernadero, DateTime fecha)
         {
             ClsTemperaturaConNombreInvernadero temperaturaConNombre = new ClsTemperaturaConNombreInvernadero("", 0, DateTime.Now.Date);
 
@@ -119,7 +119,7 @@ namespace DAL
              * puede dar problemas según la documentación: */
             // https://learn.microsoft.com/en-us/sql/t-sql/data-types/data-type-conversion-database-engine?view=sql-server-ver16
             miComando.Parameters.Add("@fechaSeleccionada", System.Data.SqlDbType.Date).Value = fecha.ToString("yyyy-MM-dd");
-            miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idDepartamento;
+            miComando.Parameters.Add("@idDepar", SqlDbType.Int).Value = idInvernadero;
 
 
             miConexion.ConnectionString = ClsConectionBD.GetConnectionString();

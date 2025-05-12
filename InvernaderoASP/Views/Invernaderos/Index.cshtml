@@ -1,0 +1,40 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+﻿@using ENT;
+
+@model IEnumerable<ClsInvernadero>
+
+@{
+}
+
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <link href="~/css/ListaInvernaderos.css" rel="stylesheet" />
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
+    </head>
+
+    <body>
+        <form method="post" asp-action="Informacion">
+            <div class="menuElegir">
+                <label for="idInvernadero">Elige un Invernadero.</label>
+                <select name="idInvernadero">
+                    <option value="" disabled selected hidden>-- Invernadero sin seleccionar --</option>
+                    @foreach (ClsInvernadero invernadero in Model)
+                    {
+                        <option value="@invernadero.Id">@invernadero.Nombre</option>
+                    }
+                </select>
+                <input class="dateSeleccionada" type="date" name="fechaSeleccionada" value="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                <input class="btnEnviar" type="submit" value="Ver temperaturas">
+                </div>
+
+            </form>
+    </body>
+
+</html>

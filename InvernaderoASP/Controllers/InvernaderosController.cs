@@ -1,28 +1,73 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BL;
+using DTO;
+using ENT;
+using Microsoft.AspNetCore.Mvc;
 
 namespace InvernaderoASP.Controllers
 {
     public class InvernaderosController : Controller
     {
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            return View();
+            // Hago esto para evitar tener que hacer varios returns en la misma función dependiendo
+            // de la circunstancia. Pregunté a ChatGPT (Sin pasar nada de código; sólo he preguntado)
+            // cómo evitar tener que hacer varios returns en una misma función de un controlador de
+            // MVC en ASP.NET, ya que este caso se suele ver mucho. Elena en primero siempre nos
+            // daba mucha caña con evitar los returns innecesarios.
+            ActionResult res;
+
+            List<ClsInvernadero> listadoInvernaderos = new List<ClsInvernadero>();
+
+            try
+            {
+                listadoInvernaderos = ListadoInvernaderosBL.ObtenerListadoInvernaderos();
+                res = View(listadoInvernaderos);
+            }
+            catch (Exception ex)
+            {
+                res = View("Error");
+            }
+
+            return res;
         }
 
         // POST: InvernaderosController
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Index(IFormCollection collection)
+        public ActionResult Informacion(int idInvernadero, DateTime fechaSeleccionada)
         {
-            //TODO: Hacer que la vista retorne un NotFound si no existe el invernadero con la fecha seleccionada. O hacerlo por un ViewBag.
+            ActionResult res = View("Index");
+            bool invernaderoExiste = false;
+            ClsTemperaturaConNombreInvernadero invernaderoAEnviar;
+
+
+
             try
             {
-                return RedirectToAction(nameof(Index));
+                invernaderoExiste = ManejadoraDtoBL.ComprobarSiFechaDeTemperaturaExiste(idInvernadero, fechaSeleccionada);      
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                res = View("Error");
             }
+
+            if(invernaderoExiste)
+            {
+                try
+                {
+                    invernaderoAEnviar = ManejadoraDtoBL.BuscarTemperaturaConNombrePorFecha(idInvernadero, fechaSeleccionada);
+                    res = View(invernaderoAEnviar);
+                }
+                catch (Exception ex) 
+                {
+                    res = View("Error");
+                }
+            } else {
+                ViewBag.ErrorPagina = "No existe un invernadero con la fecha seleccionada.";
+
+            }
+
+            return res;
+
         }
     }
 }
