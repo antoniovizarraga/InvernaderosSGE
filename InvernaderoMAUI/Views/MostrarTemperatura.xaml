@@ -21,19 +21,19 @@
             <HorizontalStackLayout Spacing="20">
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Temperatura 08:00:" />
-                    <Label Text="{Binding Temperatura1}" />
+                    <Label Text="{Binding InvernaderoInfo.Temp1, StringFormat='{0}ºC', TargetNullValue='?'}" />
                     <ProgressBar Progress="{Binding InvernaderoInfo.Temp1}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Temperatura 16:00:" />
-                    <Label Text="{Binding Temperatura2}" />
+                    <Label Text="{Binding InvernaderoInfo.Temp2, StringFormat='{0}ºC', TargetNullValue='?'}" />
                     <ProgressBar Progress="{Binding InvernaderoInfo.Temp2}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Temperatura 24:00:" />
-                    <Label Text="{Binding Temperatura3}" />
+                    <Label Text="{Binding InvernaderoInfo.Temp3, StringFormat='{0}ºC', TargetNullValue='?'}" />
                     <ProgressBar Progress="{Binding InvernaderoInfo.Temp3}" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
@@ -44,19 +44,19 @@
             <HorizontalStackLayout Spacing="20">
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Humedad 08:00:" />
-                    <Label Text="{Binding Humedad1}" />
+                    <Label Text="{Binding InvernaderoInfo.Humedad1, StringFormat='{0}%', TargetNullValue='?'}" />
                     <ProgressBar Progress="{Binding InvernaderoInfo.Humedad1}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Humedad 16:00:" />
-                    <Label Text="{Binding Humedad2}" />
+                    <Label Text="{Binding InvernaderoInfo.Humedad2, StringFormat='{0}%', TargetNullValue='?'}" />
                     <ProgressBar Progress="{Binding InvernaderoInfo.Humedad2}" />
                 </VerticalStackLayout>
 
                 <VerticalStackLayout Spacing="20">
                     <Label Text="Humedad 24:00:" />
-                    <Label Text="{Binding Humedad3}" />
+                    <Label Text="{Binding InvernaderoInfo.Humedad3, StringFormat='{0}%', TargetNullValue='?'}" />
                     <ProgressBar Progress="{Binding InvernaderoInfo.Humedad3}" />
                 </VerticalStackLayout>
             </HorizontalStackLayout>
