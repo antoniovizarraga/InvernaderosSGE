@@ -7,6 +7,10 @@ namespace InvernaderoASP.Controllers
 {
     public class InvernaderosController : Controller
     {
+        /// <summary>
+        /// Función GET que se encarga de devolver el listado de Invernaderos al Index para que tenga los nombres
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             // Hago esto para evitar tener que hacer varios returns en la misma función dependiendo
@@ -31,6 +35,14 @@ namespace InvernaderoASP.Controllers
             return res;
         }
 
+        /// <summary>
+        /// Función POST que sirve para que cuando el usuario elija un invernadero y una fecha, redirija a la vista correspondiente
+        /// y devuelva un objeto con las temperaturas, humedades y el nombre de dicho invernadero. El invernadero y la fecha se recoge
+        /// por parámetro de forma automática de la página web.
+        /// </summary>
+        /// <param name="idInvernadero"></param>
+        /// <param name="fechaSeleccionada"></param>
+        /// <returns></returns>
         // POST: InvernaderosController
         [HttpPost]
         public ActionResult Informacion(int idInvernadero, DateTime fechaSeleccionada)
