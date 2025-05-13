@@ -6,9 +6,9 @@
 .menuElegir {
     display: flex;
     align-items: center;
-    flex-direction: column; /* Para alinear en columna (vertical) */
-    justify-content: center; /* Centra verticalmente */
-    height: 50vh; /* Necesario para que haya altura */
+    flex-direction: column; 
+    justify-content: center; 
+    height: 50vh; 
     gap: 40px;
     background-color: #232323;
 }
@@ -21,14 +21,14 @@
     border-radius: 6px;
     background-color: #f9f9f9;
     color: #333;
-    appearance: none; /* Elimina estilo por defecto del navegador */
+    appearance: none; 
     -webkit-appearance: none;
     -moz-appearance: none;
     background-image: url("data:image/svg+xml;utf8,<svg fill='gray' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 16px;
-    padding-right: 40px; /* espacio para el icono */
+    padding-right: 40px; 
     cursor: pointer;
     transition: border 0.3s ease, box-shadow 0.3s ease;
 }
@@ -61,8 +61,8 @@
 
 .inputsUsuario {
     display: flex;
-    flex-direction: row; /* por defecto es 'row', se puede omitir */
-    gap: 20px; /* Espacio entre los hijos (opcional) */
+    flex-direction: row; 
+    gap: 20px; 
 }
 
 .btnEnviar {
@@ -70,7 +70,7 @@
     font-size: 16px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
-    background-color: #0078d7; /* Azul estilo Windows / moderno */
+    background-color: #0078d7; 
     border: none;
     border-radius: 6px;
     cursor: pointer;
