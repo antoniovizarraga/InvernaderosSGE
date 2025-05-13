@@ -12,7 +12,7 @@
 
     <head>
         <meta charset="utf-8" />
-        <link href="~/css/InformacionInvernadero.css" rel="stylesheet" />
+        <link href="~/@(nameof(InvernaderoASP)).styles.css" rel="stylesheet" />
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap" rel="stylesheet">
@@ -23,48 +23,68 @@
         <section class="contenedor">
             <div id="cabecera">
                 <h1> @Model.Nombre </h1>
-                <h2> @Model.Fecha.ToString("dd/MM/yyyy") </h2>
+                <h1> @Model.Fecha.ToString("dd/MM/yyyy") </h1>
             </div>
             <div id="cuerpo">
                 <div id="tablaTemperaturas">
                     <h3> Temperatura </h3>
                     <div class="temperatura">
                         <p> 08:00 H </p>
-                        <p>@(Model.Temp1 != null ? Model.Temp1 + " ºC" : "?")</p>
+                        <div class="metrica">
+                            <p>@(Model.Temp1 != null ? Model.Temp1 + " ºC" : "?")</p>
 
-                        <!-- Hacemos esto para que si es nulo, que la barra esté vacía. -->
-                        <progress max="50" value="@(Model.Temp1 != null ? (int)Model.Temp1 : "0")"></progress>
+                            <!-- Hacemos esto para que si es nulo, que la barra esté vacía. Esta línea lo saqué de ChatGPT. -->
+                            <progress max="50" value="@(Model.Temp1 != null ? (int)Model.Temp1 : "0")"></progress>
+                        </div>   
                     </div>
                     <div class="temperatura">
                         <p> 16:00 H </p>
-                        <p>@(Model.Temp2 != null ? Model.Temp2 + " ºC" : "?")</p>
-                        <progress max="50" value="@(Model.Temp2 != null ? (int)Model.Temp2 : "0")"></progress>
+
+                        <div class="metrica">
+                            <p>@(Model.Temp2 != null ? Model.Temp2 + " ºC" : "?")</p>
+                            <progress max="50" value="@(Model.Temp2 != null ? (int)Model.Temp2 : "0")"></progress>
+                        </div>
                     </div>
                     <div class="temperatura">
                         <p> 00:00 H </p>
-                        <p>@(Model.Temp3 != null ? Model.Temp3 + " ºC" : "?")</p>
-                        <progress max="50" value="@(Model.Temp3 != null ? (int)Model.Temp3 : "0")"></progress>
+                        <div class="metrica">
+                            <p>@(Model.Temp3 != null ? Model.Temp3 + " ºC" : "?")</p>
+                            <progress max="50" value="@(Model.Temp3 != null ? (int)Model.Temp3 : "0")"></progress>
+                        </div>
+
                     </div>
                 </div>
                 <div id="tablaHumedad">
                     <h3> Humedad </h3>
                     <div class="humedad">
                         <p> 08:00 H </p>
-                        <p>@(Model.Humedad1 != null ? Model.Humedad1 + " %" : "?")</p>
-                        <progress max="100" value="@(Model.Humedad1 != null ? (int)Model.Humedad1 : "0")"></progress>
+
+                        <div class="metrica">
+                            <p>@(Model.Humedad1 != null ? Model.Humedad1 + " %" : "?")</p>
+                            <progress max="100" value="@(Model.Humedad1 != null ? (int)Model.Humedad1 : "0")"></progress>
+                        </div>
                     </div>
                     <div class="humedad">
                         <p> 16:00 H </p>
-                        <p>@(Model.Humedad2 != null ? Model.Humedad2 + " %" : "?")</p>
-                        <progress max="100" value="@(Model.Humedad2 != null ? (int)Model.Humedad2 : "0")"></progress>
+
+                        <div class="metrica">
+                            <p>@(Model.Humedad2 != null ? Model.Humedad2 + " %" : "?")</p>
+                            <progress max="100" value="@(Model.Humedad2 != null ? (int)Model.Humedad2 : "0")"></progress>
+                        </div>
+
                     </div>
                     <div class="humedad">
                         <p> 00:00 H </p>
-                        <p>@(Model.Humedad3 != null ? Model.Humedad3 + " %" : "?")</p>
-                        <progress max="100" value="@(Model.Humedad3 != null ? (int)Model.Humedad3 : "0")"></progress>
+
+                        <div class="metrica">
+                            <p>@(Model.Humedad3 != null ? Model.Humedad3 + " %" : "?")</p>
+                            <progress max="100" value="@(Model.Humedad3 != null ? (int)Model.Humedad3 : "0")"></progress>
+                        </div>
+
                     </div>
                 </div>
             </div>
+        @Html.ActionLink("Volver atrás", "Index", "Invernaderos")
         </section>
     
     </body>

@@ -11,27 +11,41 @@
 
 <html>
 
-    <head>
-        <meta charset="utf-8" />
-        <link href="~/css/ListaInvernaderos.css" rel="stylesheet" type="text/css" />
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <link href="~/@(nameof(InvernaderoASP)).styles.css" rel="stylesheet" type="text/css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap" rel="stylesheet">
+</head>
 
-    <body>
+<body>
+    <section>
         <form method="post" asp-action="Informacion">
             <div class="menuElegir">
-                <label for="idInvernadero">Elige un Invernadero.</label>
-                <select name="idInvernadero">
-                    <option value="" disabled selected hidden>-- Invernadero sin seleccionar --</option>
-                    @foreach (ClsInvernadero invernadero in Model)
-                    {
-                        <option value="@invernadero.Id">@invernadero.Nombre</option>
-                    }
-                </select>
-                <input class="dateSeleccionada" type="date" name="fechaSeleccionada" value="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
-                <input class="btnEnviar" type="submit" value="Ver temperaturas">
+                @if (@ViewBag.ErrorPagina != null)
+                {
+                    <div id="errorMensaje">
+                        <p>@ViewBag.ErrorPagina</p>
+                    </div>
+                }
+                    <label for="idInvernadero">Elige un Invernadero.</label>
+                    <div class="inputsUsuario">
+                        <select name="idInvernadero" id="selectInvernadero">
+                            <option value="" disabled selected hidden>-- Invernadero sin seleccionar --</option>
+                            @foreach (ClsInvernadero invernadero in Model)
+                            {
+                                <option value="@invernadero.Id">@invernadero.Nombre</option>
+                            }
+                        </select>
+                        <input class="dateSeleccionada" type="date" name="fechaSeleccionada" value="@DateTime.Today.ToString("yyyy-MM-dd")" max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+                    </div>
+                    
+                    <input class="btnEnviar" type="submit" value="Ver temperaturas">
                 </div>
 
             </form>
+        </section>
     </body>
 
 </html>

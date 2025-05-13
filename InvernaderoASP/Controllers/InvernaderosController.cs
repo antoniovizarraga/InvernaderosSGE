@@ -35,9 +35,15 @@ namespace InvernaderoASP.Controllers
         [HttpPost]
         public ActionResult Informacion(int idInvernadero, DateTime fechaSeleccionada)
         {
-            ActionResult res = View("Index");
+            // Esto lo hacemos por si el usuario ha elegido un invernadero que no es correcto. En cuyo caso, enviamos
+            // de vuelta dicho listado a la página.
+            List<ClsInvernadero> listadoInvernaderos = new List<ClsInvernadero>();
+            
+            ActionResult res;
             bool invernaderoExiste = false;
             ClsTemperaturaConNombreInvernadero invernaderoAEnviar;
+
+
 
 
 
@@ -63,6 +69,8 @@ namespace InvernaderoASP.Controllers
                 }
             } else {
                 ViewBag.ErrorPagina = "No existe un invernadero con la fecha seleccionada.";
+                listadoInvernaderos = ListadoInvernaderosBL.ObtenerListadoInvernaderos();
+                res = View("Index", listadoInvernaderos);
 
             }
 
